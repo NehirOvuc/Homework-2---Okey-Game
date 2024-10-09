@@ -56,7 +56,18 @@ public class Player {
      * @return
      */
     public boolean isWinningHand() {
-        return false;
+        int playerChains = 0;
+        int i = 0;
+         while(i < numberOfTiles){
+            if (playerTiles[i + 1].canFormChainWith(playerTiles[i]) &&
+                playerTiles[i + 2].canFormChainWith(playerTiles[i]) &&
+                playerTiles[i + 3].canFormChainWith(playerTiles[i])) {
+                playerChains++;
+                i += 3;  // checks 3 tiles at once
+            }
+        }
+        return playerChains;
+        
     }
 
     public int findPositionOfTile(Tile t) {

@@ -66,7 +66,7 @@ public class Player {
                 i += 3;  // checks 3 tiles at once
             }
         }
-        return playerChains;
+        return playerChains == 3;
         
     }
 

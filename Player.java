@@ -29,6 +29,7 @@ public class Player {
      */
     public void addTile(Tile t) {
         // Do nothing if player already has 15 tiles
+        boolean enoughTiles = true;
 
         // Find the correct position to insert the new tile
         int i;
@@ -37,13 +38,15 @@ public class Player {
             if (playerTiles[i].compareTo(t) > 0) {
                 playerTiles[i + 1] = playerTiles[i];  // Shift the tile to the right
             } else {
-                break;
+                enoughTiles = false;
             }
           }
         }
-    
-        playerTiles[i + 1] = t;  // Insert the new tile
-        numberOfTiles++;
+
+        if(enoughTiles == true){
+            playerTiles[i + 1] = t;  // Insert the new tile
+            numberOfTiles++;
+        }
     }
 
     /*

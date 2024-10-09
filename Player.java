@@ -18,7 +18,6 @@ public class Player {
         for (int i = index; i < numberOfTiles - 1; i++) {
             playerTiles[i] = playerTiles[i + 1];
         }
-        playerTiles[numberOfTiles - 1] = null;  // Set the last tile to null
         numberOfTiles--;  // Decrease the count of tiles
         return removedTile;
     }
@@ -29,16 +28,18 @@ public class Player {
      * make sure playerTiles are not more than 15 at any time
      */
     public void addTile(Tile t) {
-        if (numberOfTiles >= 15) return;  // Do nothing if player already has 15 tiles
+        // Do nothing if player already has 15 tiles
 
         // Find the correct position to insert the new tile
         int i;
+        if (numberOfTiles < 15){
         for (i = numberOfTiles - 1; i >= 0; i--) {
             if (playerTiles[i].compareTo(t) > 0) {
                 playerTiles[i + 1] = playerTiles[i];  // Shift the tile to the right
             } else {
                 break;
             }
+          }
         }
     
         playerTiles[i + 1] = t;  // Insert the new tile

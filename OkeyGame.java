@@ -36,7 +36,7 @@ public class OkeyGame {
      * this method assumes the tiles are already shuffled
      */
     public void distributeTilesToPlayers() {
-
+        
     }
 
     /*
@@ -61,7 +61,7 @@ public class OkeyGame {
      * TODO: should randomly shuffle the tiles array before game starts
      */
     public void shuffleTiles() {
-        
+
         ArrayList<Integer> indexes = new ArrayList<Integer>();
         Random rand = new Random();
         
@@ -83,6 +83,11 @@ public class OkeyGame {
      * finished the game, use isWinningHand() method of Player to decide
      */
     public boolean didGameFinish() {
+        int playerIndex = getCurrentPlayerIndex();
+
+        if ((players[playerIndex]).isWinningHand()){
+            return true;
+        }
         return false;
     }
 

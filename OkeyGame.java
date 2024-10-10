@@ -48,7 +48,7 @@ public class OkeyGame {
         {
             for(int i = 0; i < 14; i++)
             {
-                players[currentPlayerIndex].addTile(tiles[lastDiscardedTileNumber + i]);
+                players[currentPlayerIndex].addTile(tiles[lastDiscardedTileNumber + i + 1]);
             }
             
             lastDiscardedTileNumber += 14;

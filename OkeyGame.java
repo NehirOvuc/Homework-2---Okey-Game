@@ -49,12 +49,35 @@ public class OkeyGame {
     }
 
     /*
+     * Checks if there are any remaining tiles.
+     */
+    public boolean tilesFinished(){
+        Tile topTile = tiles[0];
+        if (topTile.equals(null)){
+            return true;
+        }
+        return false;
+    }
+
+    /*
      * TODO: get the top tile from tiles array for the current player
      * that tile is no longer in the tiles array (this simulates picking up the top tile)
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getTopTile() {
-        return null;
+
+        Tile topTile = tiles[0];
+
+        //shifts the remaining tiles to the left
+        for (int i = 0; i < tiles.length-1; i++){
+            tiles[i] = tiles[i+1];
+        }
+        //sets the last tile to null
+        tiles[tiles.length-1] = null;
+        players[currentPlayerIndex].addTile(topTile);
+
+        return topTile.toString();
+
     }
 
     /*
@@ -83,6 +106,7 @@ public class OkeyGame {
      * finished the game, use isWinningHand() method of Player to decide
      */
     public boolean didGameFinish() {
+        //we should add a tie option if tiles are finished before game ends.
         int playerIndex = getCurrentPlayerIndex();
 
         if ((players[playerIndex]).isWinningHand()){

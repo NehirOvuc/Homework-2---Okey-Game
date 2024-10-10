@@ -36,7 +36,18 @@ public class OkeyGame {
      * this method assumes the tiles are already shuffled
      */
     public void distributeTilesToPlayers() {
-        
+        //------------------- UNCHECKED ------------------------
+        currentPlayerIndex = 0;
+        // ON ORDER PLAYER INDEX 0 HAS 15 TILES INSTEAD OF 14
+        players[currentPlayerIndex].addTile(tiles[0]);
+
+        for(currentPlayerIndex = 0; currentPlayerIndex < 4; currentPlayerIndex++)
+        {
+            for(int i = 0; i < 14; i++)
+            {
+                players[currentPlayerIndex].addTile(tiles[i + 1]);
+            }
+        }
     }
 
     /*

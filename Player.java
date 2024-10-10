@@ -28,23 +28,28 @@ public class Player {
      * make sure playerTiles are not more than 15 at any time
      */
     public void addTile(Tile t) {
+        
         // Do nothing if player already has 15 tiles
         boolean enoughTiles = true;
-
-        // Find the correct position to insert the new tile
-        int i;
-        if (numberOfTiles < 15){
-        for (i = numberOfTiles - 1; i >= 0; i--) {
-            if (playerTiles[i].compareTo(t) > 0) {
-                playerTiles[i + 1] = playerTiles[i];  // Shift the tile to the right
-            } else {
-                enoughTiles = false;
-            }
-          }
+        if (numberOfTiles == 15){
+            enoughTiles = false;
         }
 
-        if(enoughTiles == true){
-            playerTiles[i + 1] = t;  // Insert the new tile
+        if (!enoughTiles){
+            // Find the correct position to insert the new tile
+            for (int i = numberOfTiles - 1; i >= 0; i--) {
+                if (playerTiles[i].compareTo(t) > 0) {
+                    int tileIndex = i + 1;
+                    // Shift the tiles to the right
+                    for (int j = numberOfTiles - 1; j > tileIndex; j--){
+                        playerTiles[j] = playerTiles[j-1];
+                    }
+                } 
+                else {
+                    enoughTiles = false;
+                }
+            }
+            playerTiles[numberOfTiles] = t;  // Insert the new tile
             numberOfTiles++;
         }
     }
@@ -57,13 +62,21 @@ public class Player {
      */
     public boolean isWinningHand() {
         int playerChains = 0;
-        int i = 0;
-         while(i < numberOfTiles){
-            if (playerTiles[i + 1].canFormChainWith(playerTiles[i]) &&
-                playerTiles[i + 2].canFormChainWith(playerTiles[i]) &&
-                playerTiles[i + 3].canFormChainWith(playerTiles[i])) {
-                playerChains++;
-                i += 3;  // checks 3 tiles at once
+
+        int noOfTilesInChain = 1;
+        Tile checkTile = playerTiles[0];
+
+        for (int i = 0; i < numberOfTiles-1; i++){
+            
+            if(checkTile.compareTo(playerTiles[i+1]) != 0){
+                checkTile = playerTiles[i];
+            }
+            if(checkTile.canFormChainWith(playerTiles[i+1])){
+                noOfTilesInChain ++;
+            }
+            if(noOfTilesInChain == 4){
+                playerChains ++;
+                noOfTilesInChain = 1;
             }
         }
         return playerChains == 3;

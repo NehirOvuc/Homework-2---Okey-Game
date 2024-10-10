@@ -38,16 +38,23 @@ public class OkeyGame {
     public void distributeTilesToPlayers() {
         //------------------- UNCHECKED ------------------------
         currentPlayerIndex = 0;
-        // ON ORDER PLAYER INDEX 0 HAS 15 TILES INSTEAD OF 14
-        players[currentPlayerIndex].addTile(tiles[0]);
+
+        // adding 1 tile so that first player has 15 tiles instead of 14
+        players[currentPlayerIndex].addTile(tiles[0]); 
+        
+        int lastDiscardedTileNumber = 1; // 1 because first player has already given the first tile
 
         for(currentPlayerIndex = 0; currentPlayerIndex < 4; currentPlayerIndex++)
         {
             for(int i = 0; i < 14; i++)
             {
-                players[currentPlayerIndex].addTile(tiles[i + 1]);
+                players[currentPlayerIndex].addTile(tiles[lastDiscardedTileNumber + i]);
             }
+            
+            lastDiscardedTileNumber += 14;
         }
+
+        lastDiscardedTile = tiles[lastDiscardedTileNumber];
     }
 
     /*

@@ -42,7 +42,7 @@ public class OkeyGame {
         // adding 1 tile so that first player has 15 tiles instead of 14
         players[currentPlayerIndex].addTile(tiles[0]); 
         
-        int lastDiscardedTileNumber = 1; // 1 because first player has already given the first tile
+        int lastDiscardedTileNumber = 0; // 0 because first player has already given the first tile which has index 0
 
         for(currentPlayerIndex = 0; currentPlayerIndex < 4; currentPlayerIndex++)
         {

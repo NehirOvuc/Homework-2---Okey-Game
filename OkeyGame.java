@@ -141,7 +141,25 @@ public class OkeyGame {
      * the current status. Print whether computer picks from tiles or discarded ones.
      */
     public void pickTileForComputer() {
+        Player currPlayer = players[currentPlayerIndex];
 
+        //here we first check whether the tile is useful for the player or not
+        boolean isUsefulTile = false;
+        for(int i = 0; i < currPlayer.numberOfTiles; i++){
+            if(lastDiscardedTile.canFormChainWith(currPlayer.getTiles()[i])){
+                isUsefulTile = true; 
+                break;
+            }
+        }
+
+        //here if the tile is useful we print out the name of the player and the last discarded card
+        if(isUsefulTile == true){ 
+            System.out.println(currPlayer.getName() + " picks the last discarded tile: " + lastDiscardedTile);
+            currPlayer.addTile(lastDiscardedTile);
+            lastDiscardedTile = null; //so the last card is updated 
+        }else{
+            System.out.println(currPlayer.getName() + " picks the top tile: " + getTopTile()); //it just prints out the top tile
+        }
     }
 
     /*
@@ -151,7 +169,7 @@ public class OkeyGame {
      * the single tiles and tiles that contribute to the smallest chains.
      */
     public void discardTileForComputer() {
-
+       
     }
 
     /*

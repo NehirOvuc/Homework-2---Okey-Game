@@ -79,13 +79,23 @@ public class ApplicationMain {
                     playerChoice = sc.nextInt();
 
                     // TODO: make sure the given index is correct, should be 0 <= index <= 14
+                    while (playerChoice < 0 || playerChoice > 14){
+                        System.out.println("Please enter a valid index.");
+                        System.out.print("Discard the tile in index: ");
+                        playerChoice = sc.nextInt();
+                    }
 
                     game.discardTile(playerChoice);
                     game.passTurnToNextPlayer();
                 }
                 else{
-                    // if we finish the hand we win
-                    System.out.println("Congratulations, you win!");
+                    // if we finish the hand we win, if the tiles end it is a tie
+                    if (game.tilesFinished()){
+                        System.out.println("Tie, nobody wins!");
+                    }
+                    else{
+                        System.out.println(game.getCurrentPlayerName() + " wins.");
+                    }
                 }
             }
             else{
@@ -105,8 +115,13 @@ public class ApplicationMain {
                     game.passTurnToNextPlayer();
                 }
                 else{
-                    // current computer character wins
-                    System.out.println(game.getCurrentPlayerName() + " wins.");
+                    // current computer character wins or it is a tie
+                    if (game.tilesFinished()){
+                        System.out.println("Tie, nobody wins!");
+                    }
+                    else{
+                        System.out.println(game.getCurrentPlayerName() + " wins.");
+                    }
                 }
             }
         }

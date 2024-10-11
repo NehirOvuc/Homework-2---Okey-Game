@@ -130,6 +130,9 @@ public class OkeyGame {
         if ((players[playerIndex]).isWinningHand()){
             return true;
         }
+        else if (tilesFinished()){
+            return true;
+        }
         return false;
     }
 

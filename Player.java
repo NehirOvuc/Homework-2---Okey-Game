@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Player {
     String playerName;
     Tile[] playerTiles;
@@ -30,33 +32,57 @@ public class Player {
      * make sure playerTiles are not more than 15 at any time
      */
     public void addTile(Tile t) {
-        
         // Do nothing if player already has 15 tiles
-        boolean enoughTiles = true;
+        boolean enoughTiles = false;
         if (numberOfTiles == 15){
-            enoughTiles = false;
+            enoughTiles = true;
         }
         int setTile;
         setTile = 0;
-        if (numberOfTiles >= 1 && !enoughTiles){
+        if (numberOfTiles > 1  && !enoughTiles){
             // Find the correct position to insert the new tile
-            for (int i = numberOfTiles - 1; i >= 0 && !enoughTiles; i--) {
-                if (playerTiles[i].compareTo(t) > 0) {
+            for (int i = (numberOfTiles - 1); i >= 0 && !enoughTiles; i--) {
+                if (playerTiles[i].compareTo(t) >= 0) {
                     setTile = i + 1;
+                    //If greater than all, add to the end of the array
+                    if (setTile == numberOfTiles){
+                        playerTiles[i+1] = t;
+                    }
                     // Shift the tiles to the right
-                    for (int j = numberOfTiles - 1; j > setTile; j--){
-                        playerTiles[j] = playerTiles[j-1];
+                    else {
+                        for (int j=numberOfTiles-1; j>=(setTile); j--){
+                            playerTiles[j+1] = playerTiles[j];                  
+                        }
+
+                        playerTiles[setTile] = t;  // Insert the new tile
                     }
                     enoughTiles = true;
                 }
             }
-            playerTiles[setTile] = t;  // Insert the new tile
-            numberOfTiles++;
+            //If there is no such position place the tile to the first index
+            if (!enoughTiles){
+                for (int k=numberOfTiles-1; k>=0; k--){
+                    playerTiles[k+1] = playerTiles[k];                  
+                }
+                playerTiles[0] = t;
+                enoughTiles = true;
+            }
         }
+        //special cases
         else if (numberOfTiles == 0){
             playerTiles[0] = t;
-            numberOfTiles++;
         }
+        else if (numberOfTiles == 1){
+            if(playerTiles[0].compareTo(t)>0){
+                playerTiles[1] = t;
+            }
+            else{
+                playerTiles[1] = playerTiles[0];
+                playerTiles[0] = t;
+            }
+        }
+        numberOfTiles++;
+        
     }
 
     /*

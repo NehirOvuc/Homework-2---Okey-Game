@@ -1,4 +1,4 @@
-public class Tile {
+public class Tile{
     
     int value;
     char color;

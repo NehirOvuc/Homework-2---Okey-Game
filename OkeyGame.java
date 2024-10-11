@@ -41,21 +41,18 @@ public class OkeyGame {
     public void distributeTilesToPlayers() {
 
         currentPlayerIndex = 0;
-        
         // adding 1 tile so that first player has 15 tiles instead of 14
         getTopTile(); 
 
-        currentPlayerIndex = 0;
-
-        for(currentPlayerIndex = 0; currentPlayerIndex < 4; currentPlayerIndex++)
+        for(int i = 0; i < 4; i++)
         {
-            for(int i = 0; i < 14; i++)
+            for(int j = 0; j < 14; j++)
             {
                 getTopTile();
             }
+            passTurnToNextPlayer();
         }
         System.out.println(Arrays.toString(tiles));
-
         currentPlayerIndex = 0;
     }
 
@@ -75,8 +72,7 @@ public class OkeyGame {
         Tile topTile = tiles[0];
         Tile emptyTile = new Tile(8, 'E');
         if (topTile.compareTo(emptyTile) == 0){
-            return true;
-        }
+            return true;}
         return false;
     }
 

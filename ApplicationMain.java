@@ -33,6 +33,7 @@ public class ApplicationMain {
             System.out.println(game.getCurrentPlayerName() + "'s turn.");
             
             if(currentPlayer == 0) {
+                
                 // this is the human player's turn
                 game.displayCurrentPlayersTiles();
                 game.displayDiscardInformation();

@@ -1,0 +1,6 @@
+NAME     | SURNAME  | ID
+Emir       Oktay      22302333
+Fatima     Hajiyeva   22301035
+Leyla      Abbasova   22301172
+Nehir      Ovuc       22201608
+Selim Can  Ozdemir    22202592

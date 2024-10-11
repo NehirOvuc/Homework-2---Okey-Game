@@ -19,6 +19,8 @@ public class Player {
             playerTiles[i] = playerTiles[i + 1];
         }
         numberOfTiles--;  // Decrease the count of tiles
+        Tile emptyTile = new Tile(8, 'E');
+        playerTiles[numberOfTiles] = emptyTile;
         return removedTile;
     }
 
@@ -34,22 +36,25 @@ public class Player {
         if (numberOfTiles == 15){
             enoughTiles = false;
         }
-
-        if (!enoughTiles){
+        int setTile;
+        setTile = 0;
+        if (numberOfTiles >= 1 && !enoughTiles){
             // Find the correct position to insert the new tile
-            for (int i = numberOfTiles - 1; i >= 0; i--) {
+            for (int i = numberOfTiles - 1; i >= 0 && !enoughTiles; i--) {
                 if (playerTiles[i].compareTo(t) > 0) {
-                    int tileIndex = i + 1;
+                    setTile = i + 1;
                     // Shift the tiles to the right
-                    for (int j = numberOfTiles - 1; j > tileIndex; j--){
+                    for (int j = numberOfTiles - 1; j > setTile; j--){
                         playerTiles[j] = playerTiles[j-1];
                     }
-                } 
-                else {
-                    enoughTiles = false;
+                    enoughTiles = true;
                 }
             }
-            playerTiles[numberOfTiles] = t;  // Insert the new tile
+            playerTiles[setTile] = t;  // Insert the new tile
+            numberOfTiles++;
+        }
+        else if (numberOfTiles == 0){
+            playerTiles[0] = t;
             numberOfTiles++;
         }
     }

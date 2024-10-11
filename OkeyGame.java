@@ -1,4 +1,6 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class OkeyGame {
@@ -27,6 +29,7 @@ public class OkeyGame {
                 tiles[currentTile++] = new Tile(i,'K');
             }
         }
+        System.out.println(Arrays.toString(tiles));
     }
 
     /*
@@ -36,25 +39,24 @@ public class OkeyGame {
      * this method assumes the tiles are already shuffled
      */
     public void distributeTilesToPlayers() {
-        //------------------- UNCHECKED ------------------------
-        currentPlayerIndex = 0;
 
-        // adding 1 tile so that first player has 15 tiles instead of 14
-        players[currentPlayerIndex].addTile(tiles[0]); 
+        currentPlayerIndex = 0;
         
-        int lastDiscardedTileNumber = 0; // 0 because first player has already given the first tile which has index 0
+        // adding 1 tile so that first player has 15 tiles instead of 14
+        getTopTile(); 
+
+        currentPlayerIndex = 0;
 
         for(currentPlayerIndex = 0; currentPlayerIndex < 4; currentPlayerIndex++)
         {
             for(int i = 0; i < 14; i++)
             {
-                players[currentPlayerIndex].addTile(tiles[lastDiscardedTileNumber + i + 1]);
+                getTopTile();
             }
-            
-            lastDiscardedTileNumber += 14;
         }
+        System.out.println(Arrays.toString(tiles));
 
-        lastDiscardedTile = tiles[lastDiscardedTileNumber];
+        currentPlayerIndex = 0;
     }
 
     /*
@@ -71,7 +73,8 @@ public class OkeyGame {
      */
     public boolean tilesFinished(){
         Tile topTile = tiles[0];
-        if (topTile.equals(null)){
+        Tile emptyTile = new Tile(8, 'E');
+        if (topTile.compareTo(emptyTile) == 0){
             return true;
         }
         return false;
@@ -90,8 +93,9 @@ public class OkeyGame {
         for (int i = 0; i < tiles.length-1; i++){
             tiles[i] = tiles[i+1];
         }
-        //sets the last tile to null
-        tiles[tiles.length-1] = null;
+        //sets the last tile to empty tile
+        Tile emptyTile = new Tile(8, 'E');
+        tiles[tiles.length-1] = emptyTile;
         players[currentPlayerIndex].addTile(topTile);
 
         return topTile.toString();
@@ -161,7 +165,7 @@ public class OkeyGame {
             currPlayer.addTile(lastDiscardedTile);
             lastDiscardedTile = null; //so the last card is updated 
         }else{
-            System.out.println(currPlayer.getName() + " picks the top tile: " + getTopTile()); //it just prints out the top tile
+            System.out.println(currPlayer.getName() + " picks the top tile: " + getTopTile()); //it prints out the top tile
         }
     }
 
@@ -210,6 +214,7 @@ public class OkeyGame {
         if (tileDiscardFirst == null) {
             tileDiscardFirst = currPlayer.getTiles()[0];
         }
+        lastDiscardedTile = tileDiscardFirst;
     }
 
     /*
@@ -217,7 +222,7 @@ public class OkeyGame {
      * this should set lastDiscardedTile variable and remove that tile from
      * that player's tiles
      */
-     public void discardTile(int tileIndex) {
+    public void discardTile(int tileIndex) {
         Player currentPlayer = players[currentPlayerIndex];
         if (tileIndex < 0 || tileIndex >= currentPlayer.numberOfTiles) {
             System.out.println("Invalid tile index. Please choose a valid tile.");
@@ -237,16 +242,16 @@ public class OkeyGame {
 
    public void displayCurrentPlayersTiles() {
         players[currentPlayerIndex].displayTiles();
-        Player currentPlayer = players[currentPlayerIndex % players.length];
-        System.out.println(currentPlayer.playerName + "'s tiles:");
-        currentPlayer.displayTiles();
+        //Player currentPlayer = players[currentPlayerIndex % players.length];
+        //System.out.println(currentPlayer.playerName + "'s tiles:");
+        //currentPlayer.displayTiles();
     }
 
     public int getCurrentPlayerIndex() {
         return currentPlayerIndex;
     }
 
-      public String getCurrentPlayerName() {
+    public String getCurrentPlayerName() {
         return players[currentPlayerIndex].getName();
     }
 

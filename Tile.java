@@ -38,17 +38,20 @@ public class Tile {
     }
 
     public int colorNameToInt() {
-        if(color == 'Y') {
+        if(Character.compare(color, 'Y') == 0) {
             return 0;
         }
-        else if(color == 'B') {
+        else if(Character.compare(color, 'B') == 0) {
             return 1;
         }
-        else if(color == 'R') {
+        else if(Character.compare(color, 'R') == 0) {
             return 2;
         }
-        else {
+        else if(Character.compare(color, 'K') == 0){
             return 3;
+        }
+        else{
+            return 4;
         }
     }
 

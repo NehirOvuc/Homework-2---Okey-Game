@@ -232,8 +232,11 @@ public class OkeyGame {
         }
     }
 
-    public void displayCurrentPlayersTiles() {
+   public void displayCurrentPlayersTiles() {
         players[currentPlayerIndex].displayTiles();
+        Player currentPlayer = players[currentPlayerIndex % players.length];
+        System.out.println(currentPlayer.playerName + "'s tiles:");
+        currentPlayer.displayTiles();
     }
 
     public int getCurrentPlayerIndex() {

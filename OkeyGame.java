@@ -214,8 +214,16 @@ public class OkeyGame {
      * this should set lastDiscardedTile variable and remove that tile from
      * that player's tiles
      */
-    public void discardTile(int tileIndex) {
-
+     public void discardTile(int tileIndex) {
+        Player currentPlayer = players[currentPlayerIndex];
+        if (tileIndex < 0 || tileIndex >= currentPlayer.numberOfTiles) {
+            System.out.println("Invalid tile index. Please choose a valid tile.");
+            return;
+        }
+        Tile discardedTile = currentPlayer.getAndRemoveTile(tileIndex);
+        this.lastDiscardedTile = discardedTile;
+        System.out.println(currentPlayer.playerName + " discarded: " + discardedTile.toString());
+        passTurnToNextPlayer();
     }
 
     public void displayDiscardInformation() {

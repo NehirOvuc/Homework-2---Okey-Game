@@ -169,7 +169,44 @@ public class OkeyGame {
      * the single tiles and tiles that contribute to the smallest chains.
      */
     public void discardTileForComputer() {
-       
+        Player currPlayer = players[currentPlayerIndex];
+        Tile tileDiscardFirst = null;
+        boolean isUsefulTile = false; 
+
+        //check for duplicates and if there is one discard it first 
+        while(tileDiscardFirst != null){
+            for(int i = 0; i < currPlayer.numberOfTiles; i++){
+                for(int j = i + 1; j < currPlayer.numberOfTiles; j++){
+                    if(currPlayer.getTiles()[i].getValue() == currPlayer.getTiles()[j].getValue() &&
+                    currPlayer.getTiles()[i].getColor() == currPlayer.getTiles()[j].getColor()){
+                        tileDiscardFirst = currPlayer.getTiles()[i];
+                        break;
+                    }
+                }
+            }
+        }
+
+        //if there no duplicates then 
+        if(tileDiscardFirst == null){
+            for(int i = 0; i < currPlayer.numberOfTiles; i++){
+                isUsefulTile = false; 
+                for(int j = 0; j < currPlayer.numberOfTiles; j++){
+                    if(i != j && currPlayer.getTiles()[i].canFormChainWith(currPlayer.getTiles()[j])){
+                        isUsefulTile = true; 
+                        break; 
+                    }
+                }
+
+                if(!isUsefulTile){
+                    tileDiscardFirst = currPlayer.getTiles()[i];
+                    break;
+                }
+            }
+        }
+
+        if (tileDiscardFirst == null) {
+            tileDiscardFirst = currPlayer.getTiles()[0];
+        }
     }
 
     /*

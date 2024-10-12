@@ -64,6 +64,7 @@ public class OkeyGame {
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getLastDiscardedTile() {
+        players[getCurrentPlayerIndex()].addTile(lastDiscardedTile);
         return lastDiscardedTile.toString();
     }
 
@@ -126,7 +127,6 @@ public class OkeyGame {
      * finished the game, use isWinningHand() method of Player to decide
      */
     public boolean didGameFinish() {
-        //we should add a tie option if tiles are finished before game ends.
         int playerIndex = getCurrentPlayerIndex();
 
         if ((players[playerIndex]).isWinningHand()){
@@ -152,15 +152,19 @@ public class OkeyGame {
         boolean isUsefulTile = false;
         for(int i = 0; i < currPlayer.numberOfTiles; i++){
             if(lastDiscardedTile.canFormChainWith(currPlayer.getTiles()[i])){
-                isUsefulTile = true; 
-                break;
+                //checks if there are any duplicates of the last discarded (NO)
+                if(currPlayer.findPositionOfTile(lastDiscardedTile) == -1){
+                    isUsefulTile = true; 
+                    break;
+                }
+                
             }
         }
 
         //here if the tile is useful we print out the name of the player and the last discarded card
-        if(isUsefulTile == true){ 
-            System.out.println(currPlayer.getName() + " picks the last discarded tile: " + lastDiscardedTile);
-            currPlayer.addTile(lastDiscardedTile);
+        if(isUsefulTile){ 
+            System.out.println(currPlayer.getName() + " picks the last discarded tile: " + getLastDiscardedTile());
+            //currPlayer.addTile(lastDiscardedTile); (NO)
             lastDiscardedTile = null; //so the last card is updated 
         }else{
             System.out.println(currPlayer.getName() + " picks the top tile: " + getTopTile()); //it prints out the top tile
@@ -179,17 +183,20 @@ public class OkeyGame {
         boolean isUsefulTile = false; 
 
         //check for duplicates and if there is one discard it first 
-        while(tileDiscardFirst != null){
+        //while(tileDiscardFirst != null){ (NO)
             for(int i = 0; i < currPlayer.numberOfTiles; i++){
                 for(int j = i + 1; j < currPlayer.numberOfTiles; j++){
+                    if (currPlayer.getTiles()[i].compareTo(currPlayer.getTiles()[j]) == 0)
+                    /* (NO)
                     if(currPlayer.getTiles()[i].getValue() == currPlayer.getTiles()[j].getValue() &&
-                    currPlayer.getTiles()[i].getColor() == currPlayer.getTiles()[j].getColor()){
+                    currPlayer.getTiles()[i].getColor() == currPlayer.getTiles()[j].getColor()) */
+                    {
                         tileDiscardFirst = currPlayer.getTiles()[i];
                         break;
                     }
                 }
             }
-        }
+        //}
 
         //if there no duplicates then 
         if(tileDiscardFirst == null){
@@ -212,6 +219,8 @@ public class OkeyGame {
         if (tileDiscardFirst == null) {
             tileDiscardFirst = currPlayer.getTiles()[0];
         }
+        int discardAtIndex = currPlayer.findPositionOfTile(tileDiscardFirst);
+        currPlayer.getAndRemoveTile(discardAtIndex);
         lastDiscardedTile = tileDiscardFirst;
     }
 
@@ -231,7 +240,7 @@ public class OkeyGame {
         Tile discardedTile = currentPlayer.getAndRemoveTile(tileIndex);
         this.lastDiscardedTile = discardedTile;
         System.out.println(currentPlayer.playerName + " discarded: " + discardedTile.toString());
-        passTurnToNextPlayer();
+        //passTurnToNextPlayer();
     }
 
     public void displayDiscardInformation() {

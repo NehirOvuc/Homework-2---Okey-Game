@@ -16,7 +16,6 @@ public class Player {
      */
     public Tile getAndRemoveTile(int index) {
         Tile removedTile = playerTiles[index];
-        System.out.println(removedTile);
         // Shift all tiles after the removed one to the left
         for (int i = index; i < numberOfTiles - 1; i++) {
             playerTiles[i] = playerTiles[i + 1];
@@ -100,9 +99,6 @@ public class Player {
 
         for (int i = 0; i < numberOfTiles-2; i++){
             
-            if(checkTile.compareTo(playerTiles[i+1]) != 0){
-                checkTile = playerTiles[i];
-            }
             if(checkTile.canFormChainWith(playerTiles[i+1])){
                 noOfTilesInChain ++;
             }
@@ -110,6 +106,13 @@ public class Player {
                 playerChains ++;
                 noOfTilesInChain = 1;
             }
+            if(checkTile.getValue() != playerTiles[i+1].getValue()){
+                noOfTilesInChain = 1;
+            }
+            if(checkTile.compareTo(playerTiles[i+1]) != 0){
+                checkTile = playerTiles[i+1];
+            }
+            
         }
         return playerChains == 3;
         
@@ -143,5 +146,11 @@ public class Player {
 
     public String getName() {
         return playerName;
+    }
+
+    //temporariy (NO)
+    public void setTiles(Tile[] myTiles){
+        playerTiles = myTiles;
+        numberOfTiles = 15;
     }
 }

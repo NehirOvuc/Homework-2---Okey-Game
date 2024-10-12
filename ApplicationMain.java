@@ -26,6 +26,7 @@ public class ApplicationMain {
         boolean firstTurn = true;
         boolean gameContinues = true;
         int playerChoice = -1;
+        
 
         while(gameContinues) {
             
@@ -113,6 +114,7 @@ public class ApplicationMain {
                 if(gameContinues) {
                     // if game did not end computer should discard
                     game.discardTileForComputer();
+                    game.displayDiscardInformation();
                     game.passTurnToNextPlayer();
                 }
                 else{

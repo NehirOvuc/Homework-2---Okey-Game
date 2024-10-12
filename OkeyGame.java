@@ -29,7 +29,6 @@ public class OkeyGame {
                 tiles[currentTile++] = new Tile(i,'K');
             }
         }
-        System.out.println(Arrays.toString(tiles));
     }
 
     /*
@@ -52,8 +51,11 @@ public class OkeyGame {
             }
             passTurnToNextPlayer();
         }
-        System.out.println(Arrays.toString(tiles));
         currentPlayerIndex = 0;
+    }
+
+    public int getCurrentPlayersTiles(){
+        return players[getCurrentPlayerIndex()].numberOfTiles;
     }
 
     /*
@@ -220,10 +222,12 @@ public class OkeyGame {
      */
     public void discardTile(int tileIndex) {
         Player currentPlayer = players[currentPlayerIndex];
+        /* already implemented in main (NO)
         if (tileIndex < 0 || tileIndex >= currentPlayer.numberOfTiles) {
             System.out.println("Invalid tile index. Please choose a valid tile.");
             return;
         }
+        */
         Tile discardedTile = currentPlayer.getAndRemoveTile(tileIndex);
         this.lastDiscardedTile = discardedTile;
         System.out.println(currentPlayer.playerName + " discarded: " + discardedTile.toString());

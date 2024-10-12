@@ -16,6 +16,7 @@ public class Player {
      */
     public Tile getAndRemoveTile(int index) {
         Tile removedTile = playerTiles[index];
+        System.out.println(removedTile);
         // Shift all tiles after the removed one to the left
         for (int i = index; i < numberOfTiles - 1; i++) {
             playerTiles[i] = playerTiles[i + 1];
@@ -97,7 +98,7 @@ public class Player {
         int noOfTilesInChain = 1;
         Tile checkTile = playerTiles[0];
 
-        for (int i = 0; i < numberOfTiles-1; i++){
+        for (int i = 0; i < numberOfTiles-2; i++){
             
             if(checkTile.compareTo(playerTiles[i+1]) != 0){
                 checkTile = playerTiles[i];

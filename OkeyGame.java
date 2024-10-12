@@ -111,10 +111,11 @@ public class OkeyGame {
         
         for (int i = 0; i < 112; i++){
             int index = rand.nextInt(112);
-            while (indexes.contains(index)){
+            while (indexes.contains(index)) // checking the index place is appropriate to fill or not
+            {
                 index = rand.nextInt(112);
             }
-            indexes.add(index);
+            indexes.add(index); // when the random index has been found adds the tile
             Tile temp = tiles[i];
             tiles[i] = tiles[index];
             tiles[index] = temp;
@@ -132,7 +133,7 @@ public class OkeyGame {
         if ((players[playerIndex]).isWinningHand()){
             return true;
         }
-        else if (tilesFinished()){
+        else if (tilesFinished()){ //for the tie situations
             return true;
         }
         return false;

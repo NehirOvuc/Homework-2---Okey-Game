@@ -148,9 +148,4 @@ public class Player {
         return playerName;
     }
 
-    //temporariy (NO)
-    public void setTiles(Tile[] myTiles){
-        playerTiles = myTiles;
-        numberOfTiles = 15;
-    }
 }

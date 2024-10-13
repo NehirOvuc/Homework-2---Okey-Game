@@ -183,31 +183,37 @@ public class OkeyGame {
         Tile tileDiscardFirst = null;
         boolean isUsefulTile = false; 
 
+        Boolean check;
+        check = true;
         //check for duplicates and if there is one discard it first 
-            for(int i = 0; i < currPlayer.numberOfTiles; i++){
-                for(int j = i + 1; j < currPlayer.numberOfTiles; j++){
+        for(int i = 0; i < currPlayer.numberOfTiles; i++){
+            for(int j = i + 1; j < currPlayer.numberOfTiles && check; j++){
                 if (currPlayer.getTiles()[i].compareTo(currPlayer.getTiles()[j]) == 0)
                 {
                     tileDiscardFirst = currPlayer.getTiles()[i];
-                    break;
+                    check = false;
                 }
             }
         }
 
+        Boolean check2;
+        Boolean check3;
+        check2 = true;
+        check3 = true;
         //if there no duplicates then 
         if(tileDiscardFirst == null){
-            for(int i = 0; i < currPlayer.numberOfTiles; i++){
+            for(int i = 0; i < currPlayer.numberOfTiles && check3; i++){
                 isUsefulTile = false; 
-                for(int j = 0; j < currPlayer.numberOfTiles; j++){
+                for(int j = 0; j < currPlayer.numberOfTiles && check2; j++){
                     if(i != j && currPlayer.getTiles()[i].canFormChainWith(currPlayer.getTiles()[j])){
                         isUsefulTile = true; 
-                        break; 
+                        check2 = false; 
                     }
                 }
 
                 if(!isUsefulTile){
                     tileDiscardFirst = currPlayer.getTiles()[i];
-                    break;
+                    check3 = false;
                 }
             }
         }
@@ -233,13 +239,15 @@ public class OkeyGame {
                 }
             }
 
+            Boolean check4;
+            check4 = true;
             // after finding the least chain's value, finds the index to eliminate it
-            for(int i = 0; i < currPlayer.numberOfTiles; i++)
+            for(int i = 0; i < currPlayer.numberOfTiles && check4; i++)
             {
                 if(currPlayer.getTiles()[i].getValue() == leastCountExceptZeroIndex + 1)
                 {
                     tileDiscardFirst = currPlayer.getTiles()[i];
-                    break;
+                    check4 = false;
                 }
             }
         }

@@ -115,6 +115,14 @@ public class Player {
             }
             
         }
+        if(checkTile.canFormChainWith(playerTiles[numberOfTiles-1])){
+            noOfTilesInChain ++;
+        }
+        //checks for four tiles in a chain to form a complete chain
+        if(noOfTilesInChain == 4){
+            playerChains ++;
+            noOfTilesInChain = 1;
+        }
         //the player can only win when there are 3 complete chains
         return playerChains == 3;
         
@@ -153,6 +161,10 @@ public class Player {
 
     public String getName() {
         return playerName;
+    }
+
+    public void setTiles(Tile[] arr){
+        playerTiles = arr;
     }
 
 }

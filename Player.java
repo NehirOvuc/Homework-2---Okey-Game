@@ -135,9 +135,11 @@ public class Player {
         
         //prints out the tiles
         System.out.print(playerName + "'s Tiles: ");
-        for (int i = 0; i < numberOfTiles; i++) {
-            System.out.print(playerTiles[i].toString() + " ");
+        System.out.print("(");
+        for (int i = 0; i < numberOfTiles-1; i++) {
+            System.out.print(playerTiles[i].toString() + "-");
         }
+        System.out.print(playerTiles[numberOfTiles-1] + ")");
         System.out.println();
     }
 

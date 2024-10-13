@@ -107,9 +107,10 @@ public class ApplicationMain {
                     System.out.println(game.getCurrentPlayerName() + " picks the top tile: " + game.pickTileForComputer()); //it prints out the top tile
                 }
 
-                // computer picks a tile from tile stack or other player's discard
-                game.pickTileForComputer();
-                System.out.println(game.getCurrentPlayerName() + " picks the top tile.");
+                else{
+                    // computer picks a tile from tile stack or other player's discard
+                    game.pickTileForComputer();
+                }
 
                 gameContinues = !game.didGameFinish();
 

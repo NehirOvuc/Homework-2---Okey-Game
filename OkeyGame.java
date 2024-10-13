@@ -216,8 +216,7 @@ public class OkeyGame {
             tileDiscardFirst = currPlayer.getTiles()[0];
         }
         int discardAtIndex = currPlayer.findPositionOfTile(tileDiscardFirst);
-        currPlayer.getAndRemoveTile(discardAtIndex);
-        lastDiscardedTile = tileDiscardFirst;
+        discardTile(discardAtIndex);
     }
 
     /*

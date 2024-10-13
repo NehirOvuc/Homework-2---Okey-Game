@@ -232,7 +232,7 @@ public class OkeyGame {
     }
 
     public void displayDiscardInformation() {
-        if(lastDiscardedTile != null) {
+        if(lastDiscardedTile != null && currentPlayerIndex == 0) {
             System.out.println("Last Discarded: " + lastDiscardedTile.toString());
         }
     }

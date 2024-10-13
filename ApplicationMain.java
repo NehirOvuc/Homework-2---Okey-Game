@@ -103,8 +103,8 @@ public class ApplicationMain {
             else{
                 // this is the computer player's turn
                 if(devModeOn) {
+                    game.pickTileForComputer();
                     game.displayCurrentPlayersTiles();
-                    System.out.println(game.getCurrentPlayerName() + " picks the top tile: " + game.pickTileForComputer()); //it prints out the top tile
                 }
 
                 else{

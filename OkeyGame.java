@@ -32,7 +32,7 @@ public class OkeyGame {
     }
 
     /*
-     * TODO: distributes the starting tiles to the players
+     * distributes the starting tiles to the players
      * player at index 0 gets 15 tiles and starts first
      * other players get 14 tiles
      * this method assumes the tiles are already shuffled
@@ -59,7 +59,7 @@ public class OkeyGame {
     }
 
     /*
-     * TODO: get the last discarded tile for the current player
+     * get the last discarded tile for the current player
      * (this simulates picking up the tile discarded by the previous player)
      * it should return the toString method of the tile so that we can print what we picked
      */
@@ -80,7 +80,7 @@ public class OkeyGame {
     }
 
     /*
-     * TODO: get the top tile from tiles array for the current player
+     * get the top tile from tiles array for the current player
      * that tile is no longer in the tiles array (this simulates picking up the top tile)
      * it should return the toString method of the tile so that we can print what we picked
      */
@@ -102,7 +102,7 @@ public class OkeyGame {
     }
 
     /*
-     * TODO: should randomly shuffle the tiles array before game starts
+     * should randomly shuffle the tiles array before game starts
      */
     public void shuffleTiles() {
 
@@ -124,7 +124,7 @@ public class OkeyGame {
     }
 
     /*
-     * TODO: check if game still continues, should return true if current player
+     * check if game still continues, should return true if current player
      * finished the game, use isWinningHand() method of Player to decide
      */
     public boolean didGameFinish() {
@@ -140,23 +140,22 @@ public class OkeyGame {
     }
 
     /*
-     * TODO: Pick a tile for the current computer player using one of the following:
+     * Picks a tile for the current computer player using one of the following:
      * - picking from the tiles array using getTopTile()
      * - picking from the lastDiscardedTile using getLastDiscardedTile()
-     * You should consider if the discarded tile is useful for the computer in
+     * Checks if the discarded tile is useful for the computer in
      * the current status. Print whether computer picks from tiles or discarded ones.
      */
-    public void pickTileForComputer() {
+    public String pickTileForComputer() {
         Player currPlayer = players[currentPlayerIndex];
 
         //here we first check whether the tile is useful for the player or not
         boolean isUsefulTile = false;
-        for(int i = 0; i < currPlayer.numberOfTiles; i++){
+        for(int i = 0; i < currPlayer.numberOfTiles && !isUsefulTile; i++){
             if(lastDiscardedTile.canFormChainWith(currPlayer.getTiles()[i])){
-                //checks if there are any duplicates of the last discarded (NO)
+                //checks if there are any duplicates of the last discarded
                 if(currPlayer.findPositionOfTile(lastDiscardedTile) == -1){
                     isUsefulTile = true; 
-                    break;
                 }
                 
             }
@@ -164,18 +163,19 @@ public class OkeyGame {
 
         //here if the tile is useful we print out the name of the player and the last discarded card
         if(isUsefulTile){ 
-            System.out.println(currPlayer.getName() + " picks the last discarded tile: " + getLastDiscardedTile());
-            //currPlayer.addTile(lastDiscardedTile); (NO)
+            String discardedTile = getLastDiscardedTile();
+            System.out.println(currPlayer.getName() + " picks the last discarded tile: " + discardedTile);
             lastDiscardedTile = null; //so the last card is updated 
+            return discardedTile;
         }else{
-            System.out.println(currPlayer.getName() + " picks the top tile: " + getTopTile()); //it prints out the top tile
+            return getTopTile();
         }
     }
 
     /*
-     * TODO: Current computer player will discard the least useful tile.
+     * Current computer player will discard the least useful tile.
      * this method should print what tile is discarded since it should be
-     * known by other players. You may first discard duplicates and then
+     * known by other players. It first discards duplicates and then
      * the single tiles and tiles that contribute to the smallest chains.
      */
     public void discardTileForComputer() {
@@ -184,20 +184,15 @@ public class OkeyGame {
         boolean isUsefulTile = false; 
 
         //check for duplicates and if there is one discard it first 
-        //while(tileDiscardFirst != null){ (NO)
             for(int i = 0; i < currPlayer.numberOfTiles; i++){
                 for(int j = i + 1; j < currPlayer.numberOfTiles; j++){
-                    if (currPlayer.getTiles()[i].compareTo(currPlayer.getTiles()[j]) == 0)
-                    /* (NO)
-                    if(currPlayer.getTiles()[i].getValue() == currPlayer.getTiles()[j].getValue() &&
-                    currPlayer.getTiles()[i].getColor() == currPlayer.getTiles()[j].getColor()) */
-                    {
-                        tileDiscardFirst = currPlayer.getTiles()[i];
-                        break;
-                    }
+                if (currPlayer.getTiles()[i].compareTo(currPlayer.getTiles()[j]) == 0)
+                {
+                    tileDiscardFirst = currPlayer.getTiles()[i];
+                    break;
                 }
             }
-        //}
+        }
 
         //if there no duplicates then 
         if(tileDiscardFirst == null){
@@ -226,22 +221,15 @@ public class OkeyGame {
     }
 
     /*
-     * TODO: discards the current player's tile at given index
-     * this should set lastDiscardedTile variable and remove that tile from
+     * Discards the current player's tile at given index
+     * Sets lastDiscardedTile variable and removes that tile from
      * that player's tiles
      */
     public void discardTile(int tileIndex) {
         Player currentPlayer = players[currentPlayerIndex];
-        /* already implemented in main (NO)
-        if (tileIndex < 0 || tileIndex >= currentPlayer.numberOfTiles) {
-            System.out.println("Invalid tile index. Please choose a valid tile.");
-            return;
-        }
-        */
         Tile discardedTile = currentPlayer.getAndRemoveTile(tileIndex);
         this.lastDiscardedTile = discardedTile;
         System.out.println(currentPlayer.playerName + " discarded: " + discardedTile.toString());
-        //passTurnToNextPlayer();
     }
 
     public void displayDiscardInformation() {
@@ -252,9 +240,6 @@ public class OkeyGame {
 
    public void displayCurrentPlayersTiles() {
         players[currentPlayerIndex].displayTiles();
-        //Player currentPlayer = players[currentPlayerIndex % players.length];
-        //System.out.println(currentPlayer.playerName + "'s tiles:");
-        //currentPlayer.displayTiles();
     }
 
     public int getCurrentPlayerIndex() {

@@ -12,7 +12,7 @@ public class Player {
     }
 
     /*
-     * TODO: removes and returns the tile in given index
+     * Removes and returns the tile in given index
      */
     public Tile getAndRemoveTile(int index) {
         Tile removedTile = playerTiles[index];
@@ -27,9 +27,9 @@ public class Player {
     }
 
     /*
-     * TODO: adds the given tile to the playerTiles in order
+     * Adds the given tile to the playerTiles in order
      * should also update numberOfTiles accordingly.
-     * make sure playerTiles are not more than 15 at any time
+     * Checks for playerTiles to be not more than 15 at any time
      */
     public void addTile(Tile t) {
         // Do nothing if player already has 15 tiles
@@ -86,10 +86,10 @@ public class Player {
     }
 
     /*
-     * TODO: checks if this player's hand satisfies the winning condition
+     * Checks if this player's hand satisfies the winning condition
      * to win this player should have 3 chains of length 4, extra tiles
      * does not disturb the winning condition
-     * @return
+     *
      */
     public boolean isWinningHand() {
         int playerChains = 0;
@@ -102,6 +102,7 @@ public class Player {
             if(checkTile.canFormChainWith(playerTiles[i+1])){
                 noOfTilesInChain ++;
             }
+            //checks for four tiles in a chain to form a complete chain
             if(noOfTilesInChain == 4){
                 playerChains ++;
                 noOfTilesInChain = 1;
@@ -114,6 +115,7 @@ public class Player {
             }
             
         }
+        //the player can only win when there are 3 complete chains
         return playerChains == 3;
         
     }
@@ -128,8 +130,11 @@ public class Player {
         return tilePosition;
     }
 
+    //displays player's tiles
     public void displayTiles() {
-        System.out.println(playerName + "'s Tiles:");
+        
+        //prints out the tiles
+        System.out.print(playerName + "'s Tiles: ");
         for (int i = 0; i < numberOfTiles; i++) {
             System.out.print(playerTiles[i].toString() + " ");
         }

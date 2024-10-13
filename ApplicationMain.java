@@ -80,7 +80,7 @@ public class ApplicationMain {
                     System.out.print("Discard the tile in index: ");
                     playerChoice = sc.nextInt();
 
-                    // TODO: make sure the given index is correct, should be 0 <= index <= 14
+                    //Makes sure the given index is correct
                     while (playerChoice < 0 || playerChoice >= game.getCurrentPlayersTiles()){
                         System.out.println("Please enter a valid index.");
                         System.out.print("Discard the tile in index: ");
@@ -104,10 +104,12 @@ public class ApplicationMain {
                 // this is the computer player's turn
                 if(devModeOn) {
                     game.displayCurrentPlayersTiles();
+                    System.out.println(game.getCurrentPlayerName() + " picks the top tile: " + game.pickTileForComputer()); //it prints out the top tile
                 }
 
                 // computer picks a tile from tile stack or other player's discard
                 game.pickTileForComputer();
+                System.out.println(game.getCurrentPlayerName() + " picks the top tile.");
 
                 gameContinues = !game.didGameFinish();
 

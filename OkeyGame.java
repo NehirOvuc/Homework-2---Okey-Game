@@ -212,6 +212,38 @@ public class OkeyGame {
             }
         }
 
+        int[] numberOfTilesAccordingToValues = {0 ,0, 0, 0, 0, 0, 0};
+
+        // if all the tiles can form chain and there is no dublicates
+        if(tileDiscardFirst == null)
+        {
+            for(int i = 0; i < currPlayer.numberOfTiles; i++)
+            {
+                numberOfTilesAccordingToValues[currPlayer.getTiles()[i].getValue() - 1] += 1;
+            }
+
+            int currentMin = Integer.MAX_VALUE;
+            int leastCountExceptZeroIndex = 0; // represents least chain value
+            for (int i : numberOfTilesAccordingToValues) 
+            {
+                if(numberOfTilesAccordingToValues[i] != 0 && numberOfTilesAccordingToValues[i] < currentMin)
+                {
+                    currentMin = numberOfTilesAccordingToValues[i];
+                    leastCountExceptZeroIndex = i;
+                }
+            }
+
+            // after finding the least chain's value, finds the index to eliminate it
+            for(int i = 0; i < currPlayer.numberOfTiles; i++)
+            {
+                if(currPlayer.getTiles()[i].getValue() == leastCountExceptZeroIndex + 1)
+                {
+                    tileDiscardFirst = currPlayer.getTiles()[i];
+                    break;
+                }
+            }
+        }
+
         if (tileDiscardFirst == null) {
             tileDiscardFirst = currPlayer.getTiles()[0];
         }
